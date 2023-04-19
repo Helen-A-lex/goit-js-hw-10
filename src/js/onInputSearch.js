@@ -1,3 +1,5 @@
 export function onInputSearch(e) {
-  console.log(e.currentTarget.value);
+  e.preventDefault();
+  const query = e.currentTarget.value;
+  console.log(query);
 }

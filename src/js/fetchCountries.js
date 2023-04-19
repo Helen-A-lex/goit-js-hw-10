@@ -1,6 +1,16 @@
 export function fetchCountries(name) {
-  const BASE_URL = `https://restcountries.com/v3.1/`;
+  const BASE_URL = 'https://restcountries.com/v3.1/name/';
 
-  // https://restcountries.com/v3.1/name/deutschland
-  fetch = `${BASE_URL}/name`;
+  return fetch(
+    `${BASE_URL}${name}?fields=name,capital,flags,population,languages`
+  ).then(resp => {
+    if (!resp.ok) {
+      throw new Error(resp.statusText);
+    }
+
+    return resp.json();
+  });
 }
+fetchCountries('Sweden')
+  .then(data => console.log(data))
+  .catch(error => console.log(error));
