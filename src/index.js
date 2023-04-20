@@ -10,11 +10,11 @@ refs.input.addEventListener('input', debounce(onInputSearch, DEBOUNCE_DELAY));
 function onInputSearch(e) {
   e.preventDefault();
   const query = e.target.value.trim();
-  console.log(query);
 
   if (!query) {
     resetMarkup(refs.countryList);
     resetMarkup(refs.countryInfo);
+
     return;
   }
 
@@ -30,18 +30,19 @@ function onInputSearch(e) {
         resetMarkup(refs.countryInfo);
       } else {
         resetMarkup(refs.countryInfo);
+
         createMarkupCountryInfo(dataCountry);
         resetMarkup(refs.countryList);
+        // refs.input.value = '';
       }
     })
 
     .catch(error => {
-      if (error === 404) {
-        throw new Error('Data fail!');
-      }
       Notiflix.Notify.failure('Oops, there is no country with that name');
       resetMarkup(refs.countryList);
       resetMarkup(refs.countryInfo);
+
+      return;
     });
 }
 
@@ -49,7 +50,7 @@ function createMarkupCountryList(dataCountry) {
   const markup = dataCountry
     .map(
       ({ name, flags }) => `<li class="country-list-item">
-        <img class="country-list-img" src="${flags.svg}" alt="flag" width= "100" heigth="100"/>
+        <img class="country-list-img" src=${flags.svg} alt="flag" width= "50" heigth="50"/>
         <p class="country-list-text">${name.official}</p>
       </li>`
     )
@@ -62,22 +63,22 @@ function createMarkupCountryInfo(dataCountry) {
     .map(
       ({ flags, name, capital, languages, population }) => `<li class="country">
       <div class="country-name">
-        <img src="${flags.svg}" alt="flag" width= "300" heigth="300"/>
-        <h1>"${name.official}"</h1>
+        <img src=${flags.svg} alt="flag" width= "100" heigth="100"/>
+        <h1>${name.official}</h1>
       </div>
       <ul class="country-characteristics">
         <li class="country-characteristics-item">
           <p class="country-characteristics-header">Capital:</p>
-          <span class="country-characteristics-value">"${capital}"</span>
+          <span class="country-characteristics-value">${capital}</span>
         </li>
         <li class="country-characteristics-item">
           <p class="country-characteristics-header">Population:</p>
-          <span class="country-characteristics-value">"${population}"</span>
+          <span class="country-characteristics-value">${population}</span>
         </li>
         <li class="country-characteristics-item">
           <p class="country-characteristics-header">Languages:</p>
           <span class="country-characteristics-value"
-            >"${Object.values(languages).join(', ')}"</span
+            >${Object.values(languages).join(', ')}</span
           >
         </li>
       </ul>
