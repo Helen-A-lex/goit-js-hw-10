@@ -11,6 +11,3 @@ export default function fetchCountries(name) {
     return resp.json();
   });
 }
-fetchCountries('Sweden')
-  .then(data => console.log(data))
-  .catch(error => console.log(error));
